@@ -1,0 +1,27 @@
+{
+  "name": "ec-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "lint": "eslint . --ext .ts",
+    "test": "jest",
+    "dev": "nodemon src/app.ts",
+    "build": "tsc --build",
+    "coverage": "jest --collect-coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
