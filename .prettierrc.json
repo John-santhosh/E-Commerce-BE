@@ -16,6 +16,12 @@
       "options": {
         "tabWidth": 4
       }
+    },
+    {
+      "files": ".eslintrc.js",
+      "options": {
+        "singleQuote": true
+      }
     }
   ]
 }
