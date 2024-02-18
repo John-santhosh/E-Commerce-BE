@@ -1,5 +1,5 @@
 import express from "express";
-import { routes } from "./routes";
+import { routes } from "./route";
 import bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
 

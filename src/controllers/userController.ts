@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../server";
-import { sendResponse } from "../helpers";
+import { sendResponse } from "@helpers";
 
 interface Body {
   firstName: string;

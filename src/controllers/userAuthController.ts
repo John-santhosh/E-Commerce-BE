@@ -1,10 +1,5 @@
 import { Request, Response } from "express";
-import { createServer, prisma } from "../server";
-import { sendResponse } from "../helpers";
-
-// const app = createServer();
-
-// const router = app.Router
+import { sendResponse } from "@helpers";
 
 export class UserAuthController {
   //p

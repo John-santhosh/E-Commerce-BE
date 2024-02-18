@@ -1,5 +1,2 @@
-import { UserController } from "./userController";
-
-const userController = new UserController();
-
-export { userController };
+export { UserController } from "./userController";
+export { UserAuthController } from "./userAuthController";

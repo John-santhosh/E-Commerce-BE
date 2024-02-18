@@ -9,7 +9,14 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "baseUrl": "./",
+    "paths": {
+      "@routes": ["src/routes"],
+      "@controllers": ["src/controllers"],
+      "@helpers": ["src/helpers"],
+      "@middleware": ["src/middleware"]
+    }
   },
   "lib": ["es2015"]
 }
