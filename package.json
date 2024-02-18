@@ -9,7 +9,8 @@
     "test": "jest",
     "dev": "nodemon src/app.ts",
     "build": "tsc --build",
-    "coverage": "jest --collect-coverage"
+    "coverage": "jest --collect-coverage",
+    "script": "npx ts-node src/scripts/index.ts"
   },
   "keywords": [],
   "author": "",

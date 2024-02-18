@@ -1,4 +1,3 @@
-import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import { createServer } from "./server";
 
@@ -10,5 +9,3 @@ const app = createServer();
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
 });
-
-export const prisma = new PrismaClient();

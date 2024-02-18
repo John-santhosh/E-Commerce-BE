@@ -1,14 +1,39 @@
 import { Request, Response } from "express";
-import { prisma } from "../app";
+import { prisma } from "../server";
+import { sendResponse } from "../helpers";
 
+interface Body {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
 export class UserController {
   createUser = async (request: Request, response: Response) => {
-    console.log({ param: request.params });
-    console.log({ body: request.body });
-    console.log({ query: request.query });
-    // console.log(request);
+    const { firstName, email, password } = request.body;
 
-    const users = await prisma.users.findMany({});
-    response.status(200).send({ success: "userCreated", data: users });
+    if (!firstName) return sendResponse(400, { error: "FirstName Required" }, response);
+
+    if (!email) return sendResponse(400, { error: "Email Required" }, response);
+
+    if (!password) return sendResponse(400, { error: "Password Required" }, response);
+
+    try {
+      const foundUser = await prisma.users.findUnique({ where: { email } });
+      console.log({ foundUser });
+
+      if (foundUser) return sendResponse(400, { error: "Email Already taken" }, response);
+
+      const res = await prisma.users.create({
+        data: { ...request.body },
+      });
+
+      if (res.id) return sendResponse(200, { success: "userCreated" }, response);
+
+      return sendResponse(503, { error: "Service not available" }, response);
+    } catch (error: any) {
+      console.log("error creating user");
+      sendResponse(500, { error: "Internal server error" }, response);
+    }
   };
 }

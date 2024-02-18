@@ -38,5 +38,6 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     // "no-unused-vars": "on",
+    'no-explicit-any': 'on',
   },
 };

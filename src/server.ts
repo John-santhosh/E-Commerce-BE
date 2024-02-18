@@ -1,6 +1,7 @@
 import express from "express";
 import { routes } from "./routes";
 import bodyParser from "body-parser";
+import { PrismaClient } from "@prisma/client";
 
 export const createServer = () => {
   const app = express();
@@ -15,3 +16,5 @@ export const createServer = () => {
 
   return app;
 };
+
+export const prisma = new PrismaClient();

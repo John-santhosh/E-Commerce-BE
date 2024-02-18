@@ -11,11 +11,31 @@ datasource db {
 }
 
 model users {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
-  name         String?
-  passowrd     String
-  user_role_id Int
+  firstName     String
+  lastName      String?
+  email         String    @unique
+  password      String
+  userRole      userRoles @relation(fields: [userRole_Id], references: [id])
+  userRole_Id   Int       @default(1)
+  emailVerified Boolean   @default(false)
+  uniqueId      String    @default(uuid())
+  status        Boolean   @default(false)
+  lastLogin     DateTime  @updatedAt
+  createdAt     DateTime  @default(now())
+  id            Int       @id @default(autoincrement())
+}
+
+enum Role {
+  USER
+  ADMIN
+  SELLER
+}
+
+model userRoles {
+  title  Role    @default(USER)
+  status Int     @default(1)
+  id     Int     @id @default(autoincrement())
+  users  users[]
 }
 
 model user_sessions {
