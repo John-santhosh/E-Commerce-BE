@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
-import { sendResponse } from "@helpers";
+import { sendResponse, sendSuccess, throwError } from "@helpers";
 import { prisma } from "src/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Prisma } from "@prisma/client";
 
 export class UserAuthController {
-  //p
   login = async (request: Request, response: Response) => {
     const { email, password } = request?.body;
     if (!email) return sendResponse(404, { error: "Email Required" }, response);
@@ -23,7 +22,7 @@ export class UserAuthController {
     // const token =
     const secretKey = process.env.ACCESS_TOKEN_SECRET;
 
-    const authToken = jwt.sign({ email, password }, secretKey || "", { expiresIn: "100s" });
+    const authToken = jwt.sign({ email, password }, secretKey || "", { expiresIn: "5h" });
     // console.log({ authToken });
 
     const refToken = jwt.sign({ email }, process.env.REFRESH_TOKEN_SECRET || "", { expiresIn: "3d" });
@@ -42,13 +41,50 @@ export class UserAuthController {
     });
     return response.status(200).send({ email, password, authToken });
   };
-  //p
+
   logOut = async (request: Request, response: Response) => {
-    return response.sendStatus(200);
+    const { email } = request?.body;
+    if (!email) return sendResponse(403, { error: "Email id required" }, response);
+
+    const { id } = response.locals;
+    try {
+      await prisma.user_sessions.update({
+        where: {
+          id,
+        },
+        data: {
+          isLoggedIn: 0,
+        },
+      });
+      return sendSuccess(response);
+    } catch (error) {
+      console.log(error);
+      throwError(response);
+    }
   };
   // p
   forgetPassword = async (request: Request, response: Response) => {
-    return response.sendStatus(200);
+    const { email } = request.body;
+    if (!email) sendResponse(401, { error: "Email required" }, response);
+    const random = Math.floor(Math.random() * 10000);
+    const token = jwt.sign({ random }, "e76ecb32dea6385a", { expiresIn: "15m" });
+    console.log({ token });
+
+    try {
+      await prisma.users.update({
+        where: {
+          email,
+        },
+        data: {
+          resetCode: random,
+          resetToken: token,
+        },
+      });
+      sendSuccess(response, { msg: "Code sent via email" }, 200);
+    } catch (error) {
+      console.log(error);
+      throwError(response);
+    }
   };
   // p
   emailVerification = async (request: Request, response: Response) => {
@@ -56,6 +92,10 @@ export class UserAuthController {
   };
   //g
   verifyOTP = async (request: Request, response: Response) => {
+    return response.sendStatus(200);
+  };
+
+  changePassword = async (request: Request, response: Response) => {
     return response.sendStatus(200);
   };
 }

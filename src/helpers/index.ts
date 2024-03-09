@@ -1,8 +1,17 @@
 import { Response } from "express";
-//  type: "SUCCESS" | "ERROR" = "SUCCESS"
+
 export const sendResponse = (status: number, data: any, response: Response) => {
   return response.status(status).send(data || "");
-  //  return response.status(status).send(data);
 };
 
-// export const sendSuccessResponse = ()
+export const sendSuccess = (response: Response, data: any = "ok", status: number = 200) => {
+  return response.status(status).send(data);
+};
+
+export const throwError = (
+  response: Response,
+  data: any = { error: "Internal server error" },
+  status: number = 500,
+) => {
+  return response.status(status).send(data);
+};

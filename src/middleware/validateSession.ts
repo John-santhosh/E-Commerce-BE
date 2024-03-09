@@ -28,7 +28,6 @@ export const validateUser = async (request: Request, response: Response, next: N
     if (isLoggedIn == 0) return sendResponse(403, { error: "Token not logged" }, response);
     // verify JWT
     jwt.verify(headerAuthToken as string, process.env.ACCESS_TOKEN_SECRET || "", async (err, decoded) => {
-      console.log({ err });
       if (err) {
         await prisma.user_sessions.update({
           where: { id },
@@ -38,7 +37,7 @@ export const validateUser = async (request: Request, response: Response, next: N
         });
         return sendResponse(401, { error: "Token expired or not valid" }, response);
       } else {
-        response.locals.user = findUser.user;
+        response.locals = { ...findUser, session_id: id };
         next();
       }
     });
