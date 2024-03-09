@@ -18,5 +18,8 @@
       "@middleware": ["src/middleware"]
     }
   },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "lib": ["es2015"]
 }
