@@ -1,5 +1,5 @@
 import express from "express";
-import { routes } from "./route";
+import { router } from "./route";
 import bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
 
@@ -12,7 +12,7 @@ export const createServer = () => {
   // parse application/json
   app.use(bodyParser.json());
 
-  routes(app);
+  router(app);
 
   return app;
 };

@@ -1,1 +1,1 @@
-export * as validateSessions from "./validateSession";
+export { validateUser } from "./validateSession";
