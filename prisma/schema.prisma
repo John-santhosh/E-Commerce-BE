@@ -11,23 +11,24 @@ datasource db {
 }
 
 model users {
-  id            Int             @id @default(autoincrement())
-  firstName     String
-  lastName      String?
-  email         String          @unique
-  password      String
-  userRole      user_roles      @relation(fields: [userRole_Id], references: [id])
-  userRole_Id   Int             @default(1)
-  emailVerified Boolean         @default(false)
-  uniqueId      String          @default(uuid())
-  status        Boolean         @default(false)
-  resetCode     Int?
-  resetToken    String?
-  refreshToken  String?
-  totalSessions Int             @default(0)
-  lastLogin     DateTime        @updatedAt
-  createdAt     DateTime        @default(now())
-  user_sessions user_sessions[]
+  id               Int             @id @default(autoincrement())
+  firstName        String
+  lastName         String?
+  email            String          @unique
+  password         String
+  userRole         user_roles      @relation(fields: [userRole_Id], references: [id])
+  userRole_Id      Int             @default(1)
+  emailVerified    Boolean         @default(false)
+  uniqueId         String          @default(uuid())
+  status           Boolean         @default(false)
+  isChangePassword Boolean         @default(false)
+  resetCode        Int?
+  resetToken       String?
+  refreshToken     String?
+  totalSessions    Int             @default(0)
+  lastLogin        DateTime        @updatedAt
+  createdAt        DateTime        @default(now())
+  user_sessions    user_sessions[]
 }
 
 enum Role {
