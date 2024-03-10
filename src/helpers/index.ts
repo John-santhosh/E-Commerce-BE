@@ -15,3 +15,7 @@ export const throwError = (
 ) => {
   return response.status(status).send(data);
 };
+
+export const generateRandomCode = (e: number = 1) => {
+  return Math.floor(Math.random() * e);
+};

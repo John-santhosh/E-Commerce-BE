@@ -11,6 +11,6 @@ export const router = (app: Express) => {
 
   // default route
   app.use("*", (_, response: Response) => {
-    response.status(400).send({ msg: "Bad request" });
+    response.status(404).send({ msg: "No route found" });
   });
 };
